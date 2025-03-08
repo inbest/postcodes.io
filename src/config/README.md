@@ -14,6 +14,7 @@ Default configuration values can be found at `config/config.js` and `config/defa
 # HTTP
 PORT # Port to listen on
 SERVE_STATIC_ASSETS # Set to `false` to prevent `public/` from being served
+URL_PREFIX # Prefix to append to all routes in this app
 
 # JSON string to set arbitrary headers on all HTTP responses
 # String must be valid JSON object. E.g. HTTP_HEADERS='{"foo":"bar"}'
@@ -32,9 +33,6 @@ LOG_DESTINATION # Log destination, can be set to file `LOG_DESTINATION=/var/logs
 
 # Google analytics key
 GA_KEY
-
-# Mapbox key if you wish to use `/explore` functionality
-MAPBOX_PUBLIC_KEY
 
 #Inserts optional prometheus monitoring middleware
 # Express-prom-bundle exposes a '/metrics' endpoint which can be queried by prometheus

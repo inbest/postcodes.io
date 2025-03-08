@@ -9,6 +9,7 @@ import {
   ScottishPostcode,
   Nuts,
   Ward,
+  PoliceForceArea,
   Outcode,
   Place,
   TerminatedPostcode,
@@ -48,6 +49,7 @@ const clear = async (): Promise<unknown> => {
   await ScottishConstituency.destroyRelation();
   await Ccg.destroyRelation();
   await Ward.destroyRelation();
+  await PoliceForceArea.destroyRelation();
   await Outcode.destroyRelation();
   await Ced.destroyRelation();
 };
@@ -57,7 +59,7 @@ const seed = async (): Promise<unknown> => {
   console.log("Creating postcodes relation");
   await Postcode.setupTable(seedPostcodePath);
   await TerminatedPostcode.setupTable(seedPostcodePath);
-  console.log("Creating places releation");
+  console.log("Creating places relation");
   await Place.setupTable(seedPlacesPath);
   await ScottishPostcode.setupTable(seedScotlandPostcodePath);
   await District.setupTable();
@@ -70,6 +72,7 @@ const seed = async (): Promise<unknown> => {
   await ScottishConstituency.setupTable();
   await Ccg.setupTable();
   await Ward.setupTable();
+  await PoliceForceArea.setupTable();
   await Outcode.setupTable();
   console.log("Created outcodes relation");
   await Ced.setupTable();

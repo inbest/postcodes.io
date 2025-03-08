@@ -14,6 +14,7 @@ describe("Postcode data regression testing", function () {
   // Ordinary case
   it("contains correct data for AB123BS", async () => {
     const result = await Postcode.find("AB123BS");
+    if (result === null) throw new Error("Postcode not found");
     assert.deepEqual(
       {
         id: result.id,
@@ -24,6 +25,7 @@ describe("Postcode data regression testing", function () {
         northings: 804021,
         country: "Scotland",
         nhs_ha: "Grampian",
+        date_of_introduction: "199606",
         admin_county_id: "S99999999",
         admin_district_id: "S12000033",
         admin_ward_id: "S13002847",
@@ -43,7 +45,7 @@ describe("Postcode data regression testing", function () {
         ccg_id: "S03000012",
         ced: null,
         ced_id: "S99999999",
-        constituency_id: "S14000002",
+        constituency_id: "S14000061",
         parliamentary_constituency: "Aberdeen South",
         admin_district: "Aberdeen City",
         parish: null,
@@ -51,9 +53,11 @@ describe("Postcode data regression testing", function () {
         admin_ward: "Kincorth/Nigg/Cove",
         ccg: "Aberdeen City Community Health Partnership",
         ccg_code: "012",
-        nuts: "Aberdeen City and Aberdeenshire",
+        nuts: "Aberdeen City",
         nuts_code: "TLM50",
         nuts_id: result.nuts_id,
+        pfa_id: "S23000009",
+        pfa: "Scotland",
       },
       result
     );
@@ -61,6 +65,8 @@ describe("Postcode data regression testing", function () {
 
   it("returns correct data for SE1P5ZZ", async () => {
     const result = await Postcode.find("SE1P5ZZ");
+    if (result === null) throw new Error("Postcode not found");
+    console.log(result);
     assert.deepEqual(
       {
         id: result.id,
@@ -78,6 +84,7 @@ describe("Postcode data regression testing", function () {
         latitude: 51.492762,
         location: "0101000020E61000008080B56AD784B4BF145B41D312BF4940",
         european_electoral_region: "London",
+        date_of_introduction: "201008",
         primary_care_trust: "Southwark",
         region: "London",
         parish_id: "E43000218",
@@ -90,7 +97,7 @@ describe("Postcode data regression testing", function () {
         ccg_id: "E38000244",
         ced: null,
         ced_id: "E99999999",
-        constituency_id: "E14000553",
+        constituency_id: "E14001085",
         parliamentary_constituency: "Bermondsey and Old Southwark",
         admin_district: "Southwark",
         parish: "Southwark, unparished area",
@@ -98,9 +105,11 @@ describe("Postcode data regression testing", function () {
         admin_ward: "London Bridge & West Bermondsey",
         ccg: "NHS South East London",
         ccg_code: "72Q",
-        nuts: "Lewisham and Southwark",
+        nuts: "Southwark",
         nuts_code: "TLI44",
         nuts_id: result.nuts_id,
+        pfa_id: "E23000001",
+        pfa: "Metropolitan Police",
       },
       result
     );
@@ -110,6 +119,7 @@ describe("Postcode data regression testing", function () {
   // https://github.com/ideal-postcodes/postcodes.io/issues/197
   it("contains correct data for JE24WD", async () => {
     const result = await Postcode.find("JE24WD");
+    if (result === null) throw new Error("Postcode not found");
     assert.deepEqual(
       {
         id: result.id,
@@ -138,10 +148,11 @@ describe("Postcode data regression testing", function () {
         outcode: "JE2",
         ccg_id: "L99999999",
         ced: null,
+        date_of_introduction: "199507",
         ced_id: "L99999999",
         constituency_id: "L99999999",
         parliamentary_constituency: null,
-        admin_district: null,
+        admin_district: "Channel Islands",
         parish: null,
         admin_county: null,
         admin_ward: null,
@@ -150,6 +161,8 @@ describe("Postcode data regression testing", function () {
         nuts: null,
         nuts_code: null,
         nuts_id: result.nuts_id,
+        pfa_id: "L99999999",
+        pfa: "(pseudo) Channel Islands",
       },
       result
     );

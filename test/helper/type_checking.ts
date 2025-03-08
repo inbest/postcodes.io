@@ -105,10 +105,12 @@ const postcodeAttributes = [
   "northings",
   "longitude",
   "admin_ward",
+  "date_of_introduction",
   "admin_county",
   "admin_district",
   "region",
   "parliamentary_constituency",
+  "parliamentary_constituency_2024",
   "european_electoral_region",
   "parish",
   "lsoa",
@@ -120,6 +122,7 @@ const postcodeAttributes = [
   "outcode",
   "codes",
   "ced",
+  "pfa",
 ];
 
 //baseObject is the main template of an object
@@ -164,6 +167,7 @@ const postcodeForeignColumns = [
   "admin_county",
   "admin_ward",
   "ced",
+  "pfa",
   "ccg_code",
   "ccg",
   "nuts",
@@ -182,7 +186,7 @@ export const isRawPostcodeObjectWithFC = (
   isRawPostcodeObject(
     o,
     postcodeForeignColumns.concat(additionalAttr || []),
-    blacklist
+    blacklist || []
   );
 };
 

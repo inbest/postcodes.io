@@ -1,3 +1,173 @@
+## [17.1.2](https://github.com/ideal-postcodes/postcodes.io/compare/17.1.1...17.1.2) (2025-02-05)
+
+
+### Bug Fixes
+
+* **Constituency:** Fix encoding issues ([dbb5ced](https://github.com/ideal-postcodes/postcodes.io/commit/dbb5cedeaa17bc36a241b24be4b123d02ea0f5d8))
+
+## [17.1.1](https://github.com/ideal-postcodes/postcodes.io/compare/17.1.0...17.1.1) (2025-01-20)
+
+
+### Bug Fixes
+
+* **Constituencies:** Fix encoding for Ynys Môn ([d9e48ca](https://github.com/ideal-postcodes/postcodes.io/commit/d9e48cab88475c53479c5d14e5ec7e14a39f6994))
+
+# [17.1.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.0.1...17.1.0) (2025-01-06)
+
+
+### Features
+
+* **ONSPD:** Update Nov 2024 ([5eaed7c](https://github.com/ideal-postcodes/postcodes.io/commit/5eaed7c60aa9d981e19c317a27fd48f857a823e7))
+
+## [17.0.1](https://github.com/ideal-postcodes/postcodes.io/compare/17.0.0...17.0.1) (2024-10-09)
+
+
+### Bug Fixes
+
+* **ONSPD:** Aug 2024 v2 release drops BUASD ([71ed982](https://github.com/ideal-postcodes/postcodes.io/commit/71ed982126268e6e1b53b82f6ac9fd95cf10917f))
+* **ONSPD:** Bump for updated Aug 2024 ONSPD ([46210f6](https://github.com/ideal-postcodes/postcodes.io/commit/46210f638d6c333545c50884794051724557eecc))
+
+# [17.0.0](https://github.com/ideal-postcodes/postcodes.io/compare/16.0.1...17.0.0) (2024-09-30)
+
+
+### Bug Fixes
+
+* **Constituencies:** Update Westminster Constituencies ([a1d3c1e](https://github.com/ideal-postcodes/postcodes.io/commit/a1d3c1e164d603bbe5d07cbdf558d71e0d5f276f))
+
+
+### Features
+
+* **ONSPD Aug 2024:** Update pg_dump ([fabc7ee](https://github.com/ideal-postcodes/postcodes.io/commit/fabc7ee2b95d0e43292e29bd8a7f9c238dd98610))
+
+
+### BREAKING CHANGES
+
+* **Constituencies:** - ONSPD now reports 2024 Westminster Constituencies. 2014 data is no
+  longer available
+- Both `parliamentary_constituency` and
+  `parliamentary_constituency_2024` will now reference the 2024 constituencies
+
+## [16.0.1](https://github.com/ideal-postcodes/postcodes.io/compare/16.0.0...16.0.1) (2024-05-31)
+
+
+### Bug Fixes
+
+* **Support Tables:** Rebuild constituency table ([ebcfc19](https://github.com/ideal-postcodes/postcodes.io/commit/ebcfc1990c340b7b2caeecd6322ec653a319f06b))
+
+# [16.0.0](https://github.com/ideal-postcodes/postcodes.io/compare/15.5.1...16.0.0) (2024-05-28)
+
+
+### Bug Fixes
+
+* **Westminster:** Add missing Scottish Westminster constituencies ([b7b39a3](https://github.com/ideal-postcodes/postcodes.io/commit/b7b39a341c4b2c25de83167c8cf11f121f3cac17))
+
+
+### Features
+
+* **ONSPD May:** Update for May 2024 ([3d8f66d](https://github.com/ideal-postcodes/postcodes.io/commit/3d8f66d2f33e27a4b73eac92174122773e339692))
+* **Postgres:** Upgrade to Postgresql 16 ([c770882](https://github.com/ideal-postcodes/postcodes.io/commit/c7708823943c5e183671daeadbcb90c78f554a1a))
+
+
+### BREAKING CHANGES
+
+* **Postgres:** Migrates Postgresql from 10 to 16
+(postgis/postgis:16-3.4)
+
+## [15.5.1](https://github.com/ideal-postcodes/postcodes.io/compare/15.5.0...15.5.1) (2024-03-06)
+
+
+### Bug Fixes
+
+* **2024 Constituency:** Apply IDs to 2024 field ([52fa74e](https://github.com/ideal-postcodes/postcodes.io/commit/52fa74e57e90d4e9e3a008acd2fc04faef9a7624))
+* **Constituencies:** Put 2024 Cons in separate field ([871b189](https://github.com/ideal-postcodes/postcodes.io/commit/871b189d722e04c89d455b9bffc798e69c33aeb0))
+
+# [15.5.0](https://github.com/ideal-postcodes/postcodes.io/compare/15.4.1...15.5.0) (2024-03-01)
+
+
+### Features
+
+* **2024 Constituencies:** Apply expected 2024 Westminster ([20ad61a](https://github.com/ideal-postcodes/postcodes.io/commit/20ad61a527b4af32f35c5de2943e17ae91f7c5db))
+* **ONSPD:** Bump to Feb 2024 ([00eec21](https://github.com/ideal-postcodes/postcodes.io/commit/00eec21f36360fbafab67186311eb845bb106161))
+
+## [15.4.1](https://github.com/ideal-postcodes/postcodes.io/compare/15.4.0...15.4.1) (2024-02-07)
+
+
+### Bug Fixes
+
+* **Nov 2023:** Rebuild release for NUTS/ITL ([ba78b97](https://github.com/ideal-postcodes/postcodes.io/commit/ba78b973ea5d06000649a88c1484b4c2fbd95b15))
+* **NUTS:** Update NUTS/ITL ([4cf64ea](https://github.com/ideal-postcodes/postcodes.io/commit/4cf64ea309422c23497a006473cd69ab4d57edfc))
+
+# [15.4.0](https://github.com/ideal-postcodes/postcodes.io/compare/15.3.0...15.4.0) (2024-01-31)
+
+
+### Bug Fixes
+
+* **CI:** Drop test in release step ([9c0f2c8](https://github.com/ideal-postcodes/postcodes.io/commit/9c0f2c8a44623426d5b94afecf35a65c8ff5db7f))
+* **Node:** Bump to v20 ([46d5af2](https://github.com/ideal-postcodes/postcodes.io/commit/46d5af2a68ca1680c9c9ede67601edb4d91e0991))
+* **ONSPD Aug 2023:** Update CCGs ([3191842](https://github.com/ideal-postcodes/postcodes.io/commit/3191842431f8a1c2be32d05a05b82ca21ddf65af))
+
+
+### Features
+
+* **NUTS/ITL:** Update names ([837a951](https://github.com/ideal-postcodes/postcodes.io/commit/837a9518782b5920b590a7f65d567e9f86afbd57))
+* **ONSPD:** Update for Nov 2023 ([af1c922](https://github.com/ideal-postcodes/postcodes.io/commit/af1c922f4ed36ef2ba39052beef1a1062a49d5cc))
+* **Parish:** Update for 2023 ([c15a1c1](https://github.com/ideal-postcodes/postcodes.io/commit/c15a1c1ca0ec75d1e4082503db5ab9fb5b8a3a02))
+
+# [15.3.0](https://github.com/ideal-postcodes/postcodes.io/compare/15.2.0...15.3.0) (2023-08-24)
+
+
+### Bug Fixes
+
+* **ONPSD Aug 2023:** Update districts ([d78cc76](https://github.com/ideal-postcodes/postcodes.io/commit/d78cc76a24ff471a3b8488d11c569e38004d7ef7))
+* **ONSPD May 2023:** Update CCGs ([d848c76](https://github.com/ideal-postcodes/postcodes.io/commit/d848c76b3dc8454f0205260ce820ad6344405af6))
+
+
+### Features
+
+* **ONSPD:** Update to August 2023 ([0003f4a](https://github.com/ideal-postcodes/postcodes.io/commit/0003f4a1384da65b56c4e6d413a65461dafacbc5))
+* **ONSPD:** Update to May 2023 ([25db52b](https://github.com/ideal-postcodes/postcodes.io/commit/25db52b46368439e41c12cbed12015ca4a1372b4))
+
+# [15.2.0](https://github.com/ideal-postcodes/postcodes.io/compare/15.1.0...15.2.0) (2023-06-10)
+
+
+### Bug Fixes
+
+* **App:** Load router if URL Prefix not defined ([ff7a427](https://github.com/ideal-postcodes/postcodes.io/commit/ff7a427c918d8c706b41689e7c45387f3f5fe8ce))
+
+
+### Features
+
+* **URL Prefix:** Enable URL Prefixes with URL_PREFIX env flag ([c0ee972](https://github.com/ideal-postcodes/postcodes.io/commit/c0ee972ed5f62d58875df635e75bc4f3a98aa16b))
+
+# [15.1.0](https://github.com/ideal-postcodes/postcodes.io/compare/15.0.0...15.1.0) (2023-03-10)
+
+
+### Features
+
+* **ONSPD:** Bump to ONSPD Feb 2023 ([2034e01](https://github.com/ideal-postcodes/postcodes.io/commit/2034e01970211be5ccab984b20b679f3250fa3a0))
+
+# [15.0.0](https://github.com/ideal-postcodes/postcodes.io/compare/14.4.1...15.0.0) (2023-01-04)
+
+
+### Bug Fixes
+
+* **Wards:** Fix for ONSPD Nov ([3be07ad](https://github.com/ideal-postcodes/postcodes.io/commit/3be07adc16a729a53a5a3e4bc636bec359eeb3ef))
+
+
+### Features
+
+* **CCGs:** Migrate CCGs to Sub ICB Locations ([0dac18a](https://github.com/ideal-postcodes/postcodes.io/commit/0dac18a1bbef2b864de5e625a2a58bf62d4c388e))
+* **ONPSD:** Bump to Nov ([9d159ad](https://github.com/ideal-postcodes/postcodes.io/commit/9d159ada8f8643b5cbc6ccf0f1ff67a7153dc346))
+* **Police Force Area:** Add PFA model ([b3183b4](https://github.com/ideal-postcodes/postcodes.io/commit/b3183b4106b781fe4246b467904605a5f3854333))
+* **Police Force Areas:** Ingest PFA GSS codes ([ab37f8c](https://github.com/ideal-postcodes/postcodes.io/commit/ab37f8c6fd292aac0034101aae4cc9354142d14b))
+* **Police Force Areas:** Return PFA name on API ([64d43f4](https://github.com/ideal-postcodes/postcodes.io/commit/64d43f4023b0794641f8939713c68b71a01b3438))
+* **Postcodes:** Return date of creation in YYYYMM format ([df36589](https://github.com/ideal-postcodes/postcodes.io/commit/df365892bda113b6fdd6a3d16f2d6c0c4aef6c63))
+
+
+### BREAKING CHANGES
+
+* **CCGs:** From July 2022, CCGs were replaced by Sub-ICB locations.
+
 ## [14.4.1](https://github.com/ideal-postcodes/postcodes.io/compare/14.4.0...14.4.1) (2022-08-25)
 
 

@@ -41,8 +41,8 @@ export interface Config {
   log: LogConfig;
   port: number;
   serveStaticAssets: boolean;
+  urlPrefix: string;
   defaults: any;
-  mapBoxKey?: string;
   httpHeaders?: Record<string, string>;
   prometheusUsername?: string;
   prometheusPassword?: string;
@@ -64,6 +64,7 @@ const config: Record<Env, Config> = {
     },
     port: 8000,
     serveStaticAssets: true,
+    urlPrefix: "",
     defaults,
   },
 
@@ -82,6 +83,7 @@ const config: Record<Env, Config> = {
     },
     port: 8000,
     serveStaticAssets: true,
+    urlPrefix: "",
     defaults,
   },
 
@@ -100,6 +102,7 @@ const config: Record<Env, Config> = {
     },
     port: 8000,
     serveStaticAssets: false,
+    urlPrefix: "",
     defaults,
   },
 };
@@ -111,7 +114,6 @@ export const getConfig = (env?: Env): Config => {
 
   const {
     PORT,
-    MAPBOX_PUBLIC_KEY,
     POSTGRES_USER,
     POSTGRES_PASSWORD,
     POSTGRES_DATABASE,
@@ -124,13 +126,10 @@ export const getConfig = (env?: Env): Config => {
     PROMETHEUS_PASSWORD,
     SERVE_STATIC_ASSETS,
     HTTP_HEADERS,
+    URL_PREFIX,
   } = process.env;
 
   if (PORT !== undefined) cfg.port = parseInt(PORT, 10);
-
-  if (MAPBOX_PUBLIC_KEY !== undefined || !cfg.mapBoxKey) {
-    cfg.mapBoxKey = process.env.MAPBOX_PUBLIC_KEY || "";
-  }
 
   if (POSTGRES_USER !== undefined) cfg.postgres.user = POSTGRES_USER;
   if (POSTGRES_PASSWORD !== undefined)
@@ -153,6 +152,9 @@ export const getConfig = (env?: Env): Config => {
 
   if (SERVE_STATIC_ASSETS !== undefined)
     cfg.serveStaticAssets = SERVE_STATIC_ASSETS.toLowerCase() !== "false";
+
+  if (URL_PREFIX !== undefined)
+    cfg.urlPrefix = URL_PREFIX
 
   try {
     if (HTTP_HEADERS !== undefined) cfg.httpHeaders = JSON.parse(HTTP_HEADERS);

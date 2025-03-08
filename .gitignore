@@ -15,3 +15,5 @@ npm-debug.log
 *.vim
 dist
 *.env
+coverage
+.*.csv

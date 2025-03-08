@@ -1,5 +1,5 @@
 import { isValid, validOutcode } from "postcode";
-import { Outcode, OutcodeInterface, OutcodeTuple } from "./outcode";
+import { OutcodeInterface } from "./outcode";
 import { QueryResult } from "pg";
 import {
   query,
@@ -31,6 +31,7 @@ export interface PostcodeInterface {
   northings: number | null;
   country: string;
   nhs_ha: string | null;
+  date_of_introduction: string;
   longitude: number | null;
   latitude: number | null;
   european_electoral_region: string | null;
@@ -41,6 +42,7 @@ export interface PostcodeInterface {
   incode: string;
   outcode: string;
   parliamentary_constituency: string | null;
+  parliamentary_constituency_2024: string | null;
   admin_district: string | null;
   parish: string | null;
   admin_county: string | null;
@@ -48,12 +50,14 @@ export interface PostcodeInterface {
   ced: string | null;
   ccg: string | null;
   nuts: string | null;
+  pfa: string | null;
   codes: {
     admin_district: string;
     admin_county: string;
     admin_ward: string;
     parish: string;
     parliamentary_constituency: string;
+    parliamentary_constituency_2024: string;
     ccg: string;
     ccg_id: string;
     ced: string;
@@ -61,48 +65,52 @@ export interface PostcodeInterface {
     lsoa: string | null;
     msoa: string | null;
     lau2: string | null;
+    pfa: string | null;
   };
 }
 
 export interface PostcodeTuple {
   id: number;
-  postcode: string;
-  pc_compact: string;
-  quality: number;
-  eastings: number;
-  northings: number;
-  country: string;
-  nhs_ha: string;
-  admin_county_id: string;
-  admin_district_id: string;
-  admin_ward_id: string;
-  longitude: number;
-  latitude: number;
-  location: string;
-  european_electoral_region: string;
-  primary_care_trust: string;
-  region: string;
-  parish_id: string;
-  lsoa: string;
-  lsoa_id: string;
-  msoa: string;
-  msoa_id: string;
-  nuts_id: string;
-  nuts_code: string;
-  incode: string;
-  outcode: string;
-  ccg_code: string;
-  ced_id: string;
-  ccg_id: string;
-  constituency_id: string;
-  parliamentary_constituency: string;
-  admin_district: string;
-  parish: string;
-  admin_county: string;
-  admin_ward: string;
-  ced: string;
-  ccg: string;
-  nuts: string;
+  postcode: string | null;
+  pc_compact: string | null;
+  quality: number | null;
+  eastings: number | null;
+  northings: number | null;
+  country: string | null;
+  nhs_ha: string | null;
+  admin_county_id: string | null;
+  admin_district_id: string | null;
+  admin_ward_id: string | null;
+  longitude: number | null;
+  latitude: number | null;
+  location: string | null;
+  european_electoral_region: string | null;
+  primary_care_trust: string | null;
+  region: string | null;
+  parish_id: string | null;
+  lsoa: string | null;
+  date_of_introduction: string | null;
+  lsoa_id: string | null;
+  msoa: string | null;
+  msoa_id: string | null;
+  nuts_id: string | null;
+  nuts_code: string | null;
+  incode: string | null;
+  outcode: string | null;
+  ccg_code: string | null;
+  ced_id: string | null;
+  ccg_id: string | null;
+  constituency_id: string | null;
+  parliamentary_constituency: string | null;
+  admin_district: string | null;
+  parish: string | null;
+  admin_county: string | null;
+  admin_ward: string | null;
+  ced: string | null;
+  ccg: string | null;
+  nuts: string | null;
+  pfa_id: string | null;
+  pfa: string | null;
 }
 
 const relation: Relation = {
@@ -134,6 +142,8 @@ const relation: Relation = {
     ccg_id: "VARCHAR(32)",
     ced_id: "VARCHAR(32)",
     constituency_id: "VARCHAR(32)",
+    date_of_introduction: "VARCHAR(6)",
+    pfa_id: "VARCHAR(32)",
   },
   indexes: [
     {
@@ -212,14 +222,19 @@ const relationships: Relationship[] = [
     key: "lsoa_id",
     foreignKey: "code",
   },
+  {
+    table: "police_force_areas",
+    key: "pfa_id",
+    foreignKey: "code",
+  },
 ];
 
 const joinString: string = Object.freeze(
   relationships
     .map((r) => {
       return `
-			LEFT OUTER JOIN ${r.table}
-				ON postcodes.${r.key}=${r.table}.${r.foreignKey}
+			LEFT OUTER JOIN ${r.table} ${r.alt ? r.alt : ""}
+				ON postcodes.${r.key}=${r.alt ? r.alt : r.table}.${r.foreignKey}
 		`;
     })
     .join(" ")
@@ -273,6 +288,10 @@ const foreignColumns: ForeignColumn[] = [
   {
     field: "nuts.nuts_code",
     as: "nuts_code",
+  },
+  {
+    field: "police_force_areas.name",
+    as: "pfa",
   },
 ];
 
@@ -687,6 +706,19 @@ attributesQuery.push(`
 	) as country
 `);
 
+attributesQuery.push(`
+	array(
+		SELECT
+			DISTINCT constituencies.name
+		FROM
+			postcodes
+    LEFT OUTER JOIN
+      constituencies ON postcodes.constituency_id = constituencies.code
+		WHERE
+			outcode=$1 AND constituencies.name IS NOT NULL
+	) as parliamentary_constituency
+`);
+
 const outcodeQuery = `
 	SELECT
 		outcode, avg(northings) as northings, avg(eastings) as eastings,
@@ -700,13 +732,6 @@ const outcodeQuery = `
 	GROUP BY
 		outcode
 `;
-
-const outcodeAttributes = [
-  "admin_district",
-  "parish",
-  "admin_county",
-  "admin_ward",
-];
 
 const toArray = (i: string[] | [null]) => {
   if (i.length === 1 && i[0] === null) return [];
@@ -724,6 +749,7 @@ interface OutcodeTupleOutput {
   admin_county: string[] | [null];
   admin_ward: string[] | [null];
   country: string[] | [null];
+  parliamentary_constituency: string[] | [null];
 }
 
 const findOutcode = async (o: string): Promise<OutcodeInterface | null> => {
@@ -739,6 +765,9 @@ const findOutcode = async (o: string): Promise<OutcodeInterface | null> => {
   result.parish = toArray(result.parish);
   result.admin_ward = toArray(result.admin_ward);
   result.country = toArray(result.country);
+  result.parliamentary_constituency = toArray(
+    result.parliamentary_constituency
+  );
   return result;
 };
 
@@ -762,19 +791,23 @@ const toJson = function (
     incode: p.incode,
     outcode: p.outcode,
     parliamentary_constituency: p.parliamentary_constituency,
+    parliamentary_constituency_2024: p.parliamentary_constituency,
     admin_district: p.admin_district,
     parish: p.parish,
     admin_county: p.admin_county,
+    date_of_introduction: p.date_of_introduction,
     admin_ward: p.admin_ward,
     ced: p.ced,
     ccg: p.ccg,
     nuts: p.nuts,
+    pfa: p.pfa,
     codes: {
       admin_district: p.admin_district_id,
       admin_county: p.admin_county_id,
       admin_ward: p.admin_ward_id,
       parish: p.parish_id,
       parliamentary_constituency: p.constituency_id,
+      parliamentary_constituency_2024: p.constituency_id,
       ccg: p.ccg_id,
       ccg_id: p.ccg_code,
       ced: p.ced_id,
@@ -782,6 +815,7 @@ const toJson = function (
       lsoa: p.lsoa_id,
       msoa: p.msoa_id,
       lau2: p.nuts_id,
+      pfa: p.pfa_id,
     },
     // Insert distance if present
     //@ts-ignore
@@ -847,6 +881,8 @@ const seedPostcodes = async (filepath: string) => {
     { column: "outcode", method: (row) => row.extract("pcds").split(" ")[0] },
     { column: "ced_id", method: (row) => row.extract("ced") },
     { column: "ccg_id", method: (row) => row.extract("ccg") },
+    { column: "date_of_introduction", method: (row) => row.extract("dointr") },
+    { column: "pfa_id", method: (row) => row.extract("pfa") },
   ]);
 
   await methods.csvSeed({
