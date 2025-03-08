@@ -19,7 +19,7 @@ spec:
       containers:
         - name: postcodesio
           image:
-            gcr.io/inbestcloud/github-inbest-postcodesio:1.1
+            gcr.io/inbestcloud/github-inbest-postcodesio:1.2
           ports:
             - containerPort: 8000
           readinessProbe:
