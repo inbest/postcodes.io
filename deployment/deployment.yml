@@ -19,7 +19,7 @@ spec:
       containers:
         - name: postcodesio
           image:
-            gcr.io/inbestcloud/github-inbest-postcodesio:1.2
+            gcr.io/inbestcloud/github-inbest-postcodesio:2.0
           ports:
             - containerPort: 8000
           readinessProbe:
@@ -30,6 +30,13 @@ spec:
             periodSeconds: 10
           env:
             - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-env-file
+                  key: POSTGRES_DB
+            # The app reads POSTGRES_DATABASE (api/config/config.ts), not
+            # POSTGRES_DB; without this it silently uses "postcodesiodb".
+            - name: POSTGRES_DATABASE
               valueFrom:
                 configMapKeyRef:
                   name: postgres-env-file
