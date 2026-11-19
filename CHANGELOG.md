@@ -1,3 +1,289 @@
+# [20.1.0](https://github.com/ideal-postcodes/postcodes.io/compare/20.0.3...20.1.0) (2026-09-29)
+
+
+### Features
+
+* publish RFC 9727 api-catalog and homepage Link headers ([cd2b876](https://github.com/ideal-postcodes/postcodes.io/commit/cd2b8761098901d849b1fa3a71b500d0092dc584))
+
+## [20.0.3](https://github.com/ideal-postcodes/postcodes.io/compare/20.0.2...20.0.3) (2026-09-29)
+
+
+### Bug Fixes
+
+* serve robots.txt with Content-Signal ([715678e](https://github.com/ideal-postcodes/postcodes.io/commit/715678e80d5d9ba7b8206116013efc7c6a70b3e4))
+
+## [20.0.2](https://github.com/ideal-postcodes/postcodes.io/compare/20.0.1...20.0.2) (2026-09-14)
+
+
+### Bug Fixes
+
+* **docker:** move to postgis/postgis:18-3.6 ([4f8369b](https://github.com/ideal-postcodes/postcodes.io/commit/4f8369b232de16afbb04bec961680772a6c2df04))
+
+## [20.0.1](https://github.com/ideal-postcodes/postcodes.io/compare/20.0.0...20.0.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* **docker:** fetch dump in a build stage ([d980ec4](https://github.com/ideal-postcodes/postcodes.io/commit/d980ec48f091463de937047c021fb00fe0aa42d9))
+
+# [20.0.0](https://github.com/ideal-postcodes/postcodes.io/compare/19.1.0...20.0.0) (2026-09-11)
+
+
+* feat(scotland)!: move to Scottish Parliament 2026 designation, drop 2021 fields ([e94251c](https://github.com/ideal-postcodes/postcodes.io/commit/e94251cd55c1189c44f0a2f6e820c56fc4f5b964))
+
+
+### Features
+
+* **ONSPD:** Update to Aug 2026 ([6660009](https://github.com/ideal-postcodes/postcodes.io/commit/666000949a10b8c8683fe3428272ef80b02a1d5e)), closes [#1352](https://github.com/ideal-postcodes/postcodes.io/issues/1352) [#1330](https://github.com/ideal-postcodes/postcodes.io/issues/1330)
+
+
+### BREAKING CHANGES
+
+* scottish_parliamentary_region_2021, scottish_parliamentary_constituency_2021 and their codes counterparts are removed from /scotland/postcodes/:postcode.
+
+Claude-Session: https://claude.ai/code/session_0195FWjQNKqsSSeZuRyu8Lzi
+
+# [19.1.0](https://github.com/ideal-postcodes/postcodes.io/compare/19.0.2...19.1.0) (2026-06-10)
+
+
+### Features
+
+* **scottish:** expose 2025 Scottish Parliament constituency and region ([e4b44d1](https://github.com/ideal-postcodes/postcodes.io/commit/e4b44d155a011496e1ff3d6888e22d534199518f))
+
+## [19.0.2](https://github.com/ideal-postcodes/postcodes.io/compare/19.0.1...19.0.2) (2026-05-29)
+
+
+### Bug Fixes
+
+* upstream dump now nulls county names for pseudo-county areas ([6c6bb34](https://github.com/ideal-postcodes/postcodes.io/commit/6c6bb34ed540d97633153185792896dc10847bfc))
+
+## [19.0.1](https://github.com/ideal-postcodes/postcodes.io/compare/19.0.0...19.0.1) (2026-05-28)
+
+
+### Bug Fixes
+
+* **deps:** add docusaurus theme dependencies and pin webpackbar ([82347d7](https://github.com/ideal-postcodes/postcodes.io/commit/82347d7ce6ef8408ab651a5a3bba0d91576580e3))
+
+# [19.0.0](https://github.com/ideal-postcodes/postcodes.io/compare/18.0.1...19.0.0) (2026-05-26)
+
+
+* build(docker)!: Upgrade postgis to 17-3.5 and switch test container to debian slim ([34055ba](https://github.com/ideal-postcodes/postcodes.io/commit/34055ba24e848aed4b29419df9c7e5e4c981997c))
+* refactor(schema)!: Move canonical tables from pcio.* to public.* ([8e10d36](https://github.com/ideal-postcodes/postcodes.io/commit/8e10d36d4c907035f54f116292b2b935b66d9e6a))
+
+
+### Bug Fixes
+
+* **Docker:** Enable postgis ([7e53fda](https://github.com/ideal-postcodes/postcodes.io/commit/7e53fdae80087e1a26fd17d8d096d57e8f1927b7))
+* **spec,api,docs:** Align OpenAPI schemas, API behavior, and documentation for v13 ([4561fac](https://github.com/ideal-postcodes/postcodes.io/commit/4561fac8d6f48907401f8135c15126cf3882ef46))
+
+
+### Documentation
+
+* **openapi:** Expand ScottishPostcodes for full SPD coverage ([5b04b0a](https://github.com/ideal-postcodes/postcodes.io/commit/5b04b0a0007f7bff045dc96e1a063f7f64a54725))
+
+
+### Features
+
+* **api:** Return Senedd Cymru constituency from postcode lookups ([7b43570](https://github.com/ideal-postcodes/postcodes.io/commit/7b43570b0e9e500a93cd85bf7c39b40850ab05b6))
+* **ingest:** Remove ingest tooling and support-table models ([6d37c16](https://github.com/ideal-postcodes/postcodes.io/commit/6d37c160494bef7341b41b058ac6bb4a02356d7d))
+* **models:** Delete the model layer ([ab51e11](https://github.com/ideal-postcodes/postcodes.io/commit/ab51e11e1f1f5b4d97c8b65b01e8f9d8ec77b8ad))
+* **PgDump:** Expand exported dataset ([ebbf184](https://github.com/ideal-postcodes/postcodes.io/commit/ebbf1844a9c5a98fc70c2751704b6f5312891adc))
+* **queries:** Introduce api/app/queries/db.ts and migrate utils ([5a85bc4](https://github.com/ideal-postcodes/postcodes.io/commit/5a85bc4e803eb93ce42c512ad6ba4348ca1a814d))
+* **queries:** Migrate outcodes_controller to api/app/queries/outcodes ([5fcdb22](https://github.com/ideal-postcodes/postcodes.io/commit/5fcdb22db198a58cfd7794d31e0a5fb016eec57d))
+* **queries:** Migrate places_controller to api/app/queries/places ([52e4abd](https://github.com/ideal-postcodes/postcodes.io/commit/52e4abdea8efe7278c4e481aaf2c77af64669fa6))
+* **queries:** Migrate postcodes_controller to api/app/queries/postcodes ([18a69cb](https://github.com/ideal-postcodes/postcodes.io/commit/18a69cbf4659c2484fdc02976d86ba49a9973aaa))
+* **queries:** Migrate scottish_postcodes_controller to full SPD shape ([e4e077c](https://github.com/ideal-postcodes/postcodes.io/commit/e4e077cbaaa70ae7a16bf2a2161e94f9164277b5))
+* **queries:** Migrate terminated_postcodes to api/app/queries ([62c1440](https://github.com/ideal-postcodes/postcodes.io/commit/62c1440ee9cea2d7f51efb919ed7036e1e2845c0))
+* **spec,docs:** Add Senedd Cymru constituency fields to Postcode schema ([c927d3d](https://github.com/ideal-postcodes/postcodes.io/commit/c927d3df49851a25a49f94988ebe81bc3cced149))
+* **test:** Replace model-driven seed with dump-based pipeline ([364811b](https://github.com/ideal-postcodes/postcodes.io/commit/364811b14602eea0fea3846da6c0794ab9d878c8))
+
+
+### Performance Improvements
+
+* **DB:** Add partial indexes ([5d0c2b2](https://github.com/ideal-postcodes/postcodes.io/commit/5d0c2b27b14a32e85777a3ced43ffd9dc8de3d4e))
+* **db:** tune Postgres for read-only workload, add pg_prewarm ([971f267](https://github.com/ideal-postcodes/postcodes.io/commit/971f267c4ba794da4549267dc712d7921aa09dc2))
+* **outcodes:** Read from pcio.outcodes matview instead of aggregating on the fly ([466a283](https://github.com/ideal-postcodes/postcodes.io/commit/466a283456ff08df78257bae34a6267c9d0a1360))
+* **queries:** Batch bulk postcode + reverse-geo endpoints into one SQL each ([7743d9e](https://github.com/ideal-postcodes/postcodes.io/commit/7743d9e825799b31ad628194a3a17c39bb22748b))
+* **test:** Strip pnpm install from test image build ([480da6d](https://github.com/ideal-postcodes/postcodes.io/commit/480da6d38fc447e6448e36df24e7dbb8c5300889))
+
+
+### BREAKING CHANGES
+
+* All canonical data now lives under the public schema.
+Existing deployments using the old pcio.* layout must reload from the
+new dump (or migrate the schema) before pulling this version. The
+test seed (test/seed/v13.sql.gz) needs regenerating against a public.*
+source dump.
+* Postgres major version upgrade. Existing PG16 data volumes
+are not in-place compatible with the PG17 server — operators must drop the
+volume (or pg_upgrade) before pulling the new images. The published pg_dump
+under `latest` must be regenerated from PG17 to keep the format aligned.
+* **models:** api/app/models/* removed. Any external consumer
+that imported from postcodes.io's compiled output (we don't think
+there is one) must migrate to api/app/queries/*.
+* **queries:** GET /scotland/postcodes/:postcode now returns the
+full SPD record. Existing fields (postcode,
+scottish_parliamentary_constituency,
+codes.scottish_parliamentary_constituency) preserved at their
+canonical names.
+* **ingest:** removed CLIs postcodesio-onspd, postcodesio-scotpd,
+and postcodesio-oson. Ingestion is no longer this package's
+responsibility - consume a published pg_dump instead.
+* **openapi:** GET /scotland/postcodes/:postcode response shape
+expands from 3 fields to a full SPD record. Existing fields
+(postcode, scottish_parliamentary_constituency, codes.scottish_parliamentary_constituency)
+are preserved under their canonical names.
+* **test:** npm scripts setup_test_db, test:seed and test:clear
+have been removed. test:create no longer compiles TypeScript; it
+shells to bin/load_test_seed and expects test/seed/v13.sql.gz to be
+present (regenerate with bin/generate_test_seed against a fully loaded
+dev DB).
+* **PgDump:** This update restructures the database into just three tables:
+
+- onspd (ONS Postcode Directory)
+- spd (Scottish Postcode Directory)
+- osopennames (OS Open Names)
+
+Tables are now fully denormalised for performance
+
+## [18.0.1](https://github.com/ideal-postcodes/postcodes.io/compare/18.0.0...18.0.1) (2026-02-16)
+
+
+### Bug Fixes
+
+* **Release:** Trigger fixed DB build ([955c43f](https://github.com/ideal-postcodes/postcodes.io/commit/955c43f2f7eead5bf9205165f2d8f51dcbd440e3))
+
+# [18.0.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.7.0...18.0.0) (2025-12-18)
+
+
+### Features
+
+* **api:** Update LSOA and MSOA to 2021 Census data ([fd4426a](https://github.com/ideal-postcodes/postcodes.io/commit/fd4426a00fc73a053f1e23c03ad33a49352722d6)), closes [#1181](https://github.com/ideal-postcodes/postcodes.io/issues/1181) [#1053](https://github.com/ideal-postcodes/postcodes.io/issues/1053) [#898](https://github.com/ideal-postcodes/postcodes.io/issues/898)
+* **models:** Add lookup table models for new ONSPD fields ([b89ec32](https://github.com/ideal-postcodes/postcodes.io/commit/b89ec326c1380cedede1a7dd7f03c04ca21531d1))
+* **ONSPD:** Add extraction scripts and lookup data for new fields ([2cb312a](https://github.com/ideal-postcodes/postcodes.io/commit/2cb312a3546103f0365af282f94bdd29b1a20727))
+* **postcode:** Add lsoa11 and msoa11 as explicit aliases ([326ec47](https://github.com/ideal-postcodes/postcodes.io/commit/326ec472de16fd6eb75e765fc7b5bbd8bd63a7c7))
+* **postcode:** Add schema, mappings and API response for new fields ([afa64cb](https://github.com/ideal-postcodes/postcodes.io/commit/afa64cb5503b8a00b1b5f264ae7f89ad36937316))
+* **postcode:** Change lsoa/msoa to point to 2021 census data ([cfa7cd0](https://github.com/ideal-postcodes/postcodes.io/commit/cfa7cd028b44c1bb267db4cabfe0a333622e26f1))
+* **setup:** Add new ONSPD lookup tables to support tables array ([36e9822](https://github.com/ideal-postcodes/postcodes.io/commit/36e9822eb932700a8c142f9402b2639d75bf2130))
+
+
+### BREAKING CHANGES
+
+* **api:** lsoa and msoa fields now return 2021 Census values instead of 2011
+* **postcode:** lsoa and msoa fields now return 2021 census data
+instead of 2011 census data.
+
+- lsoa/msoa now return 2021 LSOA/MSOA names
+- codes.lsoa/codes.msoa now return 2021 GSS codes
+- lsoa11/msoa11 added as aliases for 2011 data
+- codes.lsoa11/codes.msoa11 added for 2011 codes
+- Updated OpenAPI spec and documentation
+
+# [17.7.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.6.2...17.7.0) (2025-12-12)
+
+
+### Features
+
+* **postcode:** Return terminated postcode data in 404 response ([afb7d73](https://github.com/ideal-postcodes/postcodes.io/commit/afb7d732a1bcadadbf83171b81bf6fb913bce2f5)), closes [#1295](https://github.com/ideal-postcodes/postcodes.io/issues/1295)
+
+## [17.6.2](https://github.com/ideal-postcodes/postcodes.io/compare/17.6.1...17.6.2) (2025-12-12)
+
+
+### Bug Fixes
+
+* **places:** Strip BOM character from code field during import ([d4cae31](https://github.com/ideal-postcodes/postcodes.io/commit/d4cae317339489bdc30eba2925cc00f3664b0553))
+
+## [17.6.1](https://github.com/ideal-postcodes/postcodes.io/compare/17.6.0...17.6.1) (2025-12-12)
+
+
+### Bug Fixes
+
+* **Places:** Fix broken places table ([98d2802](https://github.com/ideal-postcodes/postcodes.io/commit/98d2802a436281f178d3c3e746af6fc3b470d413))
+
+# [17.6.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.5.0...17.6.0) (2025-12-10)
+
+
+### Features
+
+* **ONSPD:** Update to Nov 2025 ([8936a4b](https://github.com/ideal-postcodes/postcodes.io/commit/8936a4bc04b3c07f9fc28378c2a05ea880c37192))
+
+# [17.5.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.4.1...17.5.0) (2025-09-12)
+
+
+### Bug Fixes
+
+* **import:** Update CSV header check for ONSPD AUG 2025 format ([da9d96b](https://github.com/ideal-postcodes/postcodes.io/commit/da9d96bf08ff8cb7347db6d21d07b8864d7efccc))
+* **Seed Data:** Update for new labels ([cacbc7f](https://github.com/ideal-postcodes/postcodes.io/commit/cacbc7f065b0b1f6f66dfb7b946aa27590702bc4))
+
+
+### Features
+
+* **data:** Update County Electoral Divisions to May 2025 release ([0e653bb](https://github.com/ideal-postcodes/postcodes.io/commit/0e653bbf0d82a0d93a571af794e7aaf7690d9a2f))
+* **data:** Update Parish/Non-Civil Parish codes to April 2025 v2 ([caf17e8](https://github.com/ideal-postcodes/postcodes.io/commit/caf17e8ec2fb3b5e8c993d47620297d0c544b2d0))
+
+## [17.4.1](https://github.com/ideal-postcodes/postcodes.io/compare/17.4.0...17.4.1) (2025-06-30)
+
+
+### Bug Fixes
+
+* **ui:** Balance vertical padding in homepage features section ([c57e6d3](https://github.com/ideal-postcodes/postcodes.io/commit/c57e6d3014293d6e01ccb7436bf70410c5135416))
+* **ui:** Improve footer spacing and resize logo ([25ebf07](https://github.com/ideal-postcodes/postcodes.io/commit/25ebf0749dadab69ccdcbf138dd3a7460925860c))
+* **UI:** Rebuild docs ([7fa434e](https://github.com/ideal-postcodes/postcodes.io/commit/7fa434eda1f4069edca361104e39a8cf72d74f04))
+
+# [17.4.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.3.2...17.4.0) (2025-06-30)
+
+
+### Bug Fixes
+
+* downgrade escape-string-regexp to v4 for CommonJS compatibility ([d898bfa](https://github.com/ideal-postcodes/postcodes.io/commit/d898bfadd6c5e4fae761537b26febc2b2d5eca94))
+
+
+### Features
+
+* **ONSPD:** Update to May 2025 ([e88a8d7](https://github.com/ideal-postcodes/postcodes.io/commit/e88a8d73317c0a2b4d609443599ee6900a5d6e0f))
+
+## [17.3.2](https://github.com/ideal-postcodes/postcodes.io/compare/17.3.1...17.3.2) (2025-06-18)
+
+
+### Bug Fixes
+
+* correct path formatting for terminated postcodes endpoint ([7762537](https://github.com/ideal-postcodes/postcodes.io/commit/77625379ca027b6403571df531e0432e6c7766ac))
+
+## [17.3.1](https://github.com/ideal-postcodes/postcodes.io/compare/17.3.0...17.3.1) (2025-05-15)
+
+
+### Bug Fixes
+
+* **Scottish Postcodes:** Add missing scottish cons ([b8f252b](https://github.com/ideal-postcodes/postcodes.io/commit/b8f252be3841aaaecbfc7370cfefb5d8e6e7d287)), closes [#122](https://github.com/ideal-postcodes/postcodes.io/issues/122)
+* **SPD:** Update database for scottish constituencies ([4dcc573](https://github.com/ideal-postcodes/postcodes.io/commit/4dcc573e297c46362f135a1a7aa2751ddeadcce5))
+
+# [17.3.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.2.1...17.3.0) (2025-05-08)
+
+
+### Features
+
+* **Docs:** Rewrite docs ([86ac006](https://github.com/ideal-postcodes/postcodes.io/commit/86ac0064f47eb39c76b92d9c64c27579d24481df))
+
+## [17.2.1](https://github.com/ideal-postcodes/postcodes.io/compare/17.2.0...17.2.1) (2025-04-17)
+
+
+### Bug Fixes
+
+* **OpenAPI:** Update spec ([c9bbda8](https://github.com/ideal-postcodes/postcodes.io/commit/c9bbda8abc8a65741a127dd0183fefc12a9a87bd))
+
+# [17.2.0](https://github.com/ideal-postcodes/postcodes.io/compare/17.1.2...17.2.0) (2025-04-10)
+
+
+### Bug Fixes
+
+* **CCGs:** Add missing CCG for IoM ([d1fc128](https://github.com/ideal-postcodes/postcodes.io/commit/d1fc128a0a10ca629152c6153d78958f40e75a0b))
+* **NUTS/ITL:** Update ITL for Feb 2025 ([a3fbd34](https://github.com/ideal-postcodes/postcodes.io/commit/a3fbd3466845fa4e7f9bf7b71ef1cd0b062b5e0d))
+
+
+### Features
+
+* **ONSPD:** Bump to Feb 2025 ([db8dd65](https://github.com/ideal-postcodes/postcodes.io/commit/db8dd65a4c76f6f4a7983b7e86b1c69a39351c7b))
+
 ## [17.1.2](https://github.com/ideal-postcodes/postcodes.io/compare/17.1.1...17.1.2) (2025-02-05)
 
 
@@ -474,7 +760,7 @@ Any changes, including backwards incompatible changes will be listed here
   - `"perf"` logs to stdout in [extreme mode](https://github.com/pinojs/pino/blob/master/docs/extreme.md)
 - Added ability to export prometheus metrics by basic auth protected `/metrics` endpoint. To enable include `PROMETHEUS_USERNAME` and `PROMETHEUS_PASSWORD` as environment variables. Those environment variables are required to authenticate using [HTTP basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)
 - Updated dependencies
-- Added ability to configure application limits using environment variables. [See readme](/src/config/README.md)
+- Added ability to configure application limits using environment variables. [See readme](/api/config/README.md)
 - Amended `npm run setup` bash script to accept more configuration arguments
 
 ## 10.0.1 (16/01/2019)

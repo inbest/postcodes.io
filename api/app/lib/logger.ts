@@ -1,0 +1,44 @@
+import pino from "pino";
+
+// Pino extreme can lose data but operates at twice the speed. Caveats documented here (https://github.com/pinojs/pino/blob/master/docs/extreme.md)
+const { destination } = pino;
+
+const selectTarget = (file?: string) => {
+  if (file === undefined) return destination();
+  const output = file.toLowerCase();
+  if (output === "stdout") return destination({ sync: true });
+  if (output === "perf") return destination({ sync: false });
+  return destination(file);
+};
+
+interface Log {
+  log: {
+    name: string;
+    file: string;
+  };
+}
+
+const defaultLevel = process.env.NODE_ENV === "test" ? "silent" : "info";
+
+let logger = pino({ level: defaultLevel });
+
+const configure = ({ log }: Log) => {
+  const { name, file } = log;
+  logger = pino({ name, level: defaultLevel }, selectTarget(file));
+  return logger;
+};
+
+export {
+  /**
+   * pino
+   *
+   * Default logger writes to stdout
+   */
+  logger,
+  /**
+   * configure
+   *
+   * Instantiates a logger and assigns it to exports.logger. Log configuration object accepts:
+   */
+  configure,
+};

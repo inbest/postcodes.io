@@ -1,0 +1,182 @@
+---
+sidebar_label: "Postcode Schema"
+title: "Postcode Response Schema"
+---
+
+The Postcode schema represents all geographical and administrative information associated with a UK postcode. This data is returned when using the postcode lookup endpoints and forms the core of the Postcodes.io API response structure.
+
+## Example
+
+```json
+{
+  "postcode": "SW1A 1AA",
+  "quality": 1,
+  "eastings": 529090,
+  "northings": 179645,
+  "country": "England",
+  "nhs_ha": "London",
+  "longitude": -0.141563,
+  "latitude": 51.50101,
+  "european_electoral_region": "London",
+  "primary_care_trust": "Westminster",
+  "region": "London",
+  "lsoa": "Westminster 018C",
+  "msoa": "Westminster 018",
+  "incode": "1AA",
+  "outcode": "SW1A",
+  "parliamentary_constituency": "Cities of London and Westminster",
+  "parliamentary_constituency_2024": "Cities of London and Westminster",
+  "senedd_constituency": null,
+  "senedd_constituency_no": null,
+  "admin_district": "Westminster",
+  "parish": "Westminster, unparished area",
+  "admin_county": "(pseudo) England (UA/MD/LB)",
+  "date_of_introduction": "198001",
+  "date_of_termination": null,
+  "index_of_multiple_deprivation": 24862,
+  "admin_ward": "St James's",
+  "ced": null,
+  "ccg": "NHS North West London",
+  "nuts": "Westminster",
+  "pfa": "Metropolitan Police",
+  "nhs_region": "London",
+  "ttwa": "London",
+  "national_park": "England (non-National Park)",
+  "bua": "City of Westminster",
+  "icb": "NHS North West London Integrated Care Board",
+  "cancer_alliance": "West London",
+  "lsoa11": "Westminster 018C",
+  "msoa11": "Westminster 018",
+  "lsoa21": "Westminster 018C",
+  "msoa21": "Westminster 018",
+  "oa21": "E00023938",
+  "ruc11": "(England/Wales) Urban major conurbation",
+  "ruc21": "Urban: Nearer to a major town or city",
+  "lep1": "London",
+  "lep2": null,
+  "codes": {
+    "admin_district": "E09000033",
+    "admin_county": "E99999999",
+    "admin_ward": "E05013806",
+    "parish": "E43000236",
+    "parliamentary_constituency": "E14001172",
+    "parliamentary_constituency_2024": "E14001172",
+    "ccg": "E38000256",
+    "ccg_id": "W2U3Z",
+    "ced": "E99999999",
+    "nuts": "TLI35",
+    "lsoa": "E01004736",
+    "msoa": "E02000977",
+    "lau2": "E09000033",
+    "pfa": "E23000001",
+    "nhs_region": "E40000003",
+    "ttwa": "E30000234",
+    "national_park": "E65000001",
+    "bua": "E63012036",
+    "icb": "E54000027",
+    "cancer_alliance": "E56000021",
+    "lsoa11": "E01004736",
+    "msoa11": "E02000977",
+    "lsoa21": "E01004736",
+    "msoa21": "E02000977",
+    "oa21": "E00023938",
+    "ruc11": "A1",
+    "ruc21": "UN1",
+    "lep1": "E37000051",
+    "lep2": null
+  }
+}
+```
+
+## Reference
+
+| Field                        | Type            | Description                                                                                                                               | Example                            |
+| ---------------------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `postcode`                   | string          | UK postcode format: 2-4 character outward code, a space, and a 3-character inward code. Updated monthly from Royal Mail.                  | "SW1A 2AA"                         |
+| `outcode`                    | string          | The first part of a postcode before the space (2-4 characters). This generally identifies the postal town or district.                    | "SW1A"                             |
+| `incode`                     | string          | The second part of a postcode after the space (always 3 characters). Helps identify specific streets or buildings within a postal area.   | "1AA"                              |
+| `quality`                    | integer         | Indicates accuracy of the grid reference location (1-9 scale, 1 being most accurate).                                                     | 1                                  |
+| `eastings`                   | integer \| null | Ordnance Survey grid reference easting (X-coordinate) with 1-meter resolution. May be null if geolocation unavailable.                    | 530047                             |
+| `northings`                  | integer \| null | Ordnance Survey grid reference northing (Y-coordinate) with 1-meter resolution. May be null if geolocation unavailable.                   | 179951                             |
+| `country`                    | string          | The UK constituent country for this postcode (England, Scotland, Wales, Northern Ireland, Channel Islands, or Isle of Man).               | "England"                          |
+| `nhs_ha`                     | string \| null  | The NHS health authority area for this postcode.                                                                                          | "London"                           |
+| `admin_county`               | string \| null  | The administrative county for this postcode. Null where the postcode falls outside a county-level authority (the underlying GSS code is then a pseudo such as `E99999999`, surfaced under `codes.admin_county`). | null                               |
+| `admin_district`             | string \| null  | The administrative district or unitary authority for this postcode.                                                                       | "Westminster"                      |
+| `admin_ward`                 | string \| null  | The electoral/administrative ward for this postcode.                                                                                      | "St. James's"                      |
+| `longitude`                  | number \| null  | WGS84 longitude coordinate (east-west position). May be null if geolocation unavailable.                                                  | -0.12767                           |
+| `latitude`                   | number \| null  | WGS84 latitude coordinate (north-south position). May be null if geolocation unavailable.                                                 | 51.503541                          |
+| `parliamentary_constituency` | string \| null  | The UK Parliamentary constituency for this postcode.                                                                                      | "Cities of London and Westminster" |
+| `european_electoral_region`  | string \| null  | The European Electoral Region for this postcode.                                                                                          | "London"                           |
+| `primary_care_trust`         | string \| null  | The healthcare administrative area for this postcode. Different naming conventions apply across UK regions.                               | "Westminster"                      |
+| `region`                     | string \| null  | The regional designation for this postcode (formerly Government Office Regions or GORs).                                                  | "London"                           |
+| `parish`                     | string \| null  | The civil parish (England) or community (Wales) for this postcode.                                                                        | "Westminster, unparished area"     |
+| `lsoa`                       | string \| null  | 2021 Census LSOA code (smaller statistical area, typically 1,000-1,500 residents). Now points to 2021 data.                               | "Westminster 018C"                 |
+| `msoa`                       | string \| null  | 2021 Census MSOA code (mid-size statistical area, typically 5,000-7,000 residents). Now points to 2021 data.                              | "Westminster 018"                  |
+| `ced`                        | string \| null  | The county electoral division for English postcodes. Will be null for postcodes without a grid reference or in other UK regions.          | null                               |
+| `ccg`                        | string \| null  | NHS Clinical Commissioning Group responsible for planning healthcare services in England.                                                 | "NHS North West London"            |
+| `nuts`                       | string \| null  | International Territorial Levels (ITL) code for statistical geography (formerly NUTS - Nomenclature of Units for Territorial Statistics). | "Westminster"                      |
+| `codes`                      | object          | Standard 9-character codes (ONS/GSS) for various administrative boundaries. Useful for data linking with official statistics.             | -                                  |
+| `codes.admin_district`       | string \| null  | Official 9-character GSS code for this administrative district.                                                                           | "E09000033"                        |
+| `codes.admin_county`         | string \| null  | Official 9-character GSS code for this administrative county.                                                                             | "E99999999"                        |
+| `codes.admin_ward`           | string \| null  | Official 9-character GSS code for this administrative ward.                                                                               | "E05013806"                        |
+| `codes.parish`               | string \| null  | Official 9-character GSS code for this parish.                                                                                            | "E43000236"                        |
+| `codes.parliamentary_constituency` | string \| null | Official 9-character GSS code for this Parliamentary Constituency (July 2024 boundaries). Alias for `codes.parliamentary_constituency_2024`. | "E14000639"                  |
+| `codes.ccg`                  | string \| null  | Official 9-character GSS code for this Clinical Commissioning Group.                                                                      | "E38000256"                        |
+| `codes.ccg_id`               | string \| null  | Short code identifier for this Clinical Commissioning Group.                                                                              | "W2U3Z"                            |
+| `codes.ced`                  | string \| null  | Official 9-character GSS code for this County Electoral District.                                                                         | "E99999999"                        |
+| `codes.nuts`                 | string \| null  | Official code for this International Territorial Level area.                                                                              | "TLI32"                            |
+| `codes.lau2`                 | string \| null  | Local Administrative Unit level 2 code for this area.                                                                                     | "E09000033"                        |
+| `codes.lsoa`                 | string \| null  | Official 9-character GSS code for this 2021 Census LSOA.                                                                                  | "E01004736"                        |
+| `codes.msoa`                 | string \| null  | Official 9-character GSS code for this 2021 Census MSOA.                                                                                  | "E02000977"                        |
+| `codes.pfa`                  | string \| null  | Official 9-character GSS code for this Police Force Area.                                                                                 | "E23000001"                        |
+| `pfa`                        | string \| null  | The police force area for this postcode.                                                                                                  | "Metropolitan Police"              |
+| `date_of_introduction`       | string \| null  | The date the postcode was introduced in YYYYMM format.                                                                                    | "198001"                           |
+| `date_of_termination`        | string \| null  | The date the postcode was terminated in YYYYMM format. `null` for live postcodes.                                                         | null                               |
+| `index_of_multiple_deprivation` | integer \| null | ONS Index of Multiple Deprivation (IMD) rank for this postcode's LSOA. Lower ranks correspond to more deprived areas. England, Wales, Scotland and Northern Ireland use independent IMD scales — values are not directly comparable across countries. | 14843 |
+| `parliamentary_constituency_2024` | string \| null | The UK Parliamentary constituency for this postcode based on July 2024 boundaries.                                                       | "Cities of London and Westminster" |
+| `senedd_constituency`        | string \| null  | The Senedd Cymru (Welsh Parliament) constituency for this postcode. Only applicable to Welsh postcodes; null elsewhere.                   | "Caerdydd Penarth"                 |
+| `senedd_constituency_no`     | integer \| null | The Senedd Cymru (Welsh Parliament) constituency number for this postcode. Only applicable to Welsh postcodes; null elsewhere.            | 14                                 |
+| `nhs_region`                 | string \| null  | The NHS England Region for this postcode. Only applicable to English postcodes.                                                           | "London"                           |
+| `ttwa`                       | string \| null  | The Travel to Work Area for this postcode. TTWAs are areas where most people both live and work.                                          | "London"                           |
+| `national_park`              | string \| null  | The National Park this postcode falls within, if any.                                                                                     | null                               |
+| `bua`                        | string \| null  | The Built-up Area (2022) for this postcode.                                                                                               | "Greater London"                   |
+| `icb`                        | string \| null  | The NHS Integrated Care Board responsible for healthcare planning in this area.                                                           | "NHS North West London ICB"        |
+| `cancer_alliance`            | string \| null  | The Cancer Alliance for this postcode.                                                                                                    | "RM Partners (West London)"        |
+| `lsoa11`                     | string \| null  | 2011 Census LSOA code. Alias for the 'lsoa' field.                                                                                        | "Westminster 018C"                 |
+| `msoa11`                     | string \| null  | 2011 Census MSOA code. Alias for the 'msoa' field.                                                                                        | "Westminster 018"                  |
+| `lsoa21`                     | string \| null  | 2021 Census LSOA code. In Scotland this is the Data Zone, in Northern Ireland the Small Area.                                             | "Westminster 018C"                 |
+| `msoa21`                     | string \| null  | 2021 Census MSOA code. In Scotland this is the Intermediate Zone.                                                                         | "Westminster 018"                  |
+| `oa21`                       | string \| null  | 2021 Census Output Area code - the smallest census geography.                                                                             | "E00004185"                        |
+| `ruc11`                      | string \| null  | The 2011 Census Rural-Urban Classification for this postcode.                                                                             | "Urban major conurbation"          |
+| `ruc21`                      | string \| null  | The 2021 Census Rural-Urban Classification for this postcode.                                                                             | "Urban major conurbation"          |
+| `lep1`                       | string \| null  | The primary Local Enterprise Partnership for this postcode.                                                                               | "London"                           |
+| `lep2`                       | string \| null  | The secondary Local Enterprise Partnership for this postcode, if it falls within overlapping LEP areas.                                   | null                               |
+| `codes.nhs_region`           | string \| null  | Official 9-character GSS code for this NHS England Region.                                                                                | "E40000003"                        |
+| `codes.ttwa`                 | string \| null  | Travel to Work Area code.                                                                                                                 | "E30000234"                        |
+| `codes.national_park`        | string \| null  | Official 9-character GSS code for this National Park.                                                                                     | null                               |
+| `codes.bua`                  | string \| null  | Built-up Area (2022) code.                                                                                                                | "E34004786"                        |
+| `codes.icb`                  | string \| null  | Official 9-character GSS code for this Integrated Care Board.                                                                             | "E54000027"                        |
+| `codes.cancer_alliance`      | string \| null  | Official 9-character GSS code for this Cancer Alliance.                                                                                   | "E56000009"                        |
+| `codes.lsoa11`               | string \| null  | Official 9-character GSS code for this 2011 Census LSOA. Alias for codes.lsoa.                                                            | "E01004736"                        |
+| `codes.msoa11`               | string \| null  | Official 9-character GSS code for this 2011 Census MSOA. Alias for codes.msoa.                                                            | "E02000977"                        |
+| `codes.lsoa21`               | string \| null  | Official 9-character GSS code for this 2021 Census LSOA.                                                                                  | "E01004736"                        |
+| `codes.msoa21`               | string \| null  | Official 9-character GSS code for this 2021 Census MSOA.                                                                                  | "E02000977"                        |
+| `codes.oa21`                 | string \| null  | 2021 Census Output Area code.                                                                                                             | "E00004185"                        |
+| `codes.ruc11`                | string \| null  | 2011 Census Rural-Urban Classification code.                                                                                              | "A1"                               |
+| `codes.ruc21`                | string \| null  | 2021 Census Rural-Urban Classification code.                                                                                              | "A1"                               |
+| `codes.lep1`                 | string \| null  | Official 9-character GSS code for the primary Local Enterprise Partnership.                                                               | "E37000051"                        |
+| `codes.lep2`                 | string \| null  | Official 9-character GSS code for the secondary Local Enterprise Partnership.                                                             | null                               |
+| `codes.parliamentary_constituency_2024` | string \| null | Official 9-character GSS code for this Parliamentary Constituency based on July 2024 boundaries.                                  | "E14000639"                        |
+
+## Positional Quality
+
+| Quality Value | Description                                                     |
+| ------------- | --------------------------------------------------------------- |
+| 1             | Within the actual building (most accurate)                      |
+| 2             | Same as 1, but verified by Landline maps (Scotland only)        |
+| 3             | Approximate location within 50m                                 |
+| 4             | Postcode unit mean (averaged from addresses with same postcode) |
+| 5             | Estimated by ONS using surrounding postcodes                    |
+| 6             | Postcode sector mean (mainly PO Boxes)                          |
+| 8             | Historical postcode (pre-Gridlink®)                            |
+| 9             | No grid reference available                                     |

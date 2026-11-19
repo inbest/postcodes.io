@@ -1,0 +1,75 @@
+---
+sidebar_label: "Reverse Geocode"
+title: "Reverse Geocode an Outcode"
+---
+
+This endpoint returns the nearest outcodes for a given longitude and latitude coordinate pair, ordered by proximity. Each result has the same shape as a standard outcode lookup.
+
+## Endpoint
+
+```javascript
+GET https://api.postcodes.io/outcodes?lon=[longitude]&lat=[latitude]
+```
+
+## Example Request
+
+```http
+https://api.postcodes.io/outcodes?lon=-1.6115&lat=54.9724
+```
+
+## Example Response
+
+```javascript
+{
+  "status": 200,
+  "result": [
+    {
+      "outcode": "NE1",
+      "longitude": -1.6115558171641793,
+      "latitude": 54.97241826305969,
+      "northings": 564268,
+      "eastings": 424965,
+      "admin_district": [
+        "Newcastle upon Tyne"
+      ],
+      "parish": [
+        "Newcastle upon Tyne, unparished area"
+      ],
+      "admin_county": [
+        "(pseudo) England (UA/MD/LB)"
+      ],
+      "admin_ward": [
+        "Arthur's Hill",
+        "Monument",
+        "Ouseburn"
+      ],
+      "country": [
+        "England"
+      ],
+      "parliamentary_constituency": [
+        "Newcastle upon Tyne Central and West",
+        "Newcastle upon Tyne East and Wallsend"
+      ]
+    }
+    // Truncated for brevity
+  ]
+}
+```
+
+## Request Parameters
+
+| Parameter | Required | Description                                                                           |
+| --------- | -------- | ------------------------------------------------------------------------------------- |
+| `lon`     | Yes      | The longitude coordinate. Must be a valid WGS84 longitude value between -180 and 180. |
+| `lat`     | Yes      | The latitude coordinate. Must be a valid WGS84 latitude value between -90 and 90.     |
+
+## Optional Query Parameters
+
+| Parameter | Description                                | Default | Constraints              | Example         |
+| --------- | ------------------------------------------ | ------- | ------------------------ | --------------- |
+| `limit`   | Limits number of outcode matches to return | 10      | Maximum value is 100     | `&limit=5`      |
+| `radius`  | Sets search radius in meters               | 5,000m  | Maximum value is 25,000m | `&radius=10000` |
+
+```
+
+```

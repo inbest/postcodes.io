@@ -1,8 +1,15 @@
-FROM postgis/postgis:16-3.4
+FROM buildpack-deps:curl AS dump
 
 COPY latest /tmp/latest
 
-RUN mkdir -p /docker-entrypoint-initdb.d/ && \
-    apt-get update && apt-get install -y curl && \
-    curl -o /docker-entrypoint-initdb.d/_postcodesiodata.sql.gz $(cat /tmp/latest)
+RUN mkdir -p /out && \
+    curl -o /out/01-postcodesiodata.sql.gz $(cat /tmp/latest)
 
+FROM postgis/postgis:18-3.6
+
+COPY docker/postgresql.conf /etc/postgresql/postgresql.conf
+COPY docker/postgis.sql /docker-entrypoint-initdb.d/00-postgis.sql
+COPY --from=dump /out/01-postcodesiodata.sql.gz /docker-entrypoint-initdb.d/01-postcodesiodata.sql.gz
+COPY docker/prewarm.sql /docker-entrypoint-initdb.d/02-prewarm.sql
+
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]

@@ -1,4 +1,4 @@
-import { assert } from "chai";
+import { describe, expect, it } from "vitest";
 import request from "supertest";
 import { postcodesioApplication, configFactory } from "./helper";
 const app = postcodesioApplication();
@@ -11,20 +11,11 @@ describe("Pages routes", () => {
   });
 
   describe("/docs", () => {
-    it("should return 200", async () => {
+    it("should return 301", async () => {
       await request(app)
         .get("/docs")
         .expect("Content-Type", /html/)
-        .expect(200);
-    });
-  });
-
-  describe("/about", () => {
-    it("should return 200", async () => {
-      await request(app)
-        .get("/about")
-        .expect("Content-Type", /html/)
-        .expect(200);
+        .expect(301);
     });
   });
 });
@@ -40,12 +31,6 @@ describe("Errors", () => {
   });
 });
 
-describe("Misc", () => {
-  it("should return a favicon", async () => {
-    await request(app).get("/favicon.ico").expect(200);
-  });
-});
-
 describe("Utils", () => {
   describe("Health", () => {
     it("should return 200 if DB available", async () => {
@@ -53,7 +38,7 @@ describe("Utils", () => {
         .get("/ready")
         .expect(200)
         .expect("Content-Type", /json/);
-      assert.equal(body.result, "Ready");
+      expect(body.result).toBe("Ready");
     });
   });
   describe("Ping", () => {
@@ -62,23 +47,8 @@ describe("Utils", () => {
         .get("/ping")
         .expect(200)
         .expect("Content-Type", /json/);
-      assert.equal(body.result, "pong");
+      expect(body.result).toBe("pong");
     });
-  });
-});
-
-describe("Serve static assets", () => {
-  it("serves public/ when enabled", async () => {
-    const config = configFactory();
-    config.serveStaticAssets = true;
-    const newApp = postcodesioApplication(config);
-    await request(newApp).get("/js/app.js").expect(200);
-  });
-  it("does not serve public/ when disabled", async () => {
-    const config = configFactory();
-    config.serveStaticAssets = false;
-    const newApp = postcodesioApplication(config);
-    const response = await request(newApp).get("/js/app.ts").expect(404);
   });
 });
 

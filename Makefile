@@ -19,6 +19,28 @@ up:
 down:
 	docker compose -f docker/dev/docker-compose.yml down
 
+## Terminate development environment and wipe the database volume
+.PHONY: wipe
+wipe:
+	docker compose -f docker/dev/docker-compose.yml down -v
+
+## Drop, recreate and reseed postcodesiodb from the dump URL in ./latest
+.PHONY: seed
+seed:
+	docker exec dev-db-1 psql -U postcodesio -d postgres -c "DROP DATABASE IF EXISTS postcodesiodb;"
+	docker exec dev-db-1 psql -U postcodesio -d postgres -c "CREATE DATABASE postcodesiodb OWNER postcodesio;"
+	docker exec dev-db-1 psql -U postcodesio -d postcodesiodb -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+	curl -sSL "$$(cat latest)" \
+		| gunzip \
+		| grep -vE '^\\(restrict|unrestrict) ' \
+		| docker exec -i dev-db-1 psql -U postcodesio -d postcodesiodb -v ON_ERROR_STOP=1 -q
+	$(MAKE) prewarm
+
+## VACUUM ANALYZE + pg_prewarm hot tables/indexes (no-op if pg is tuned with autovacuum=off; safe to re-run)
+.PHONY: prewarm
+prewarm:
+	docker exec -i dev-db-1 psql -U postcodesio -d postcodesiodb -v ON_ERROR_STOP=1 -q < docker/prewarm.sql
+
 ## Tail development service logs
 .PHONY: logs
 logs:
@@ -27,7 +49,7 @@ logs:
 ## Open psql shell to development pg instance
 .PHONY: psql
 psql:
-	psql -h 0.0.0.0 --username postcodesio postcodesiodb
+	PGPASSWORD=password psql -h 127.0.0.1 -p 5433 --username postcodesio postcodesiodb
 
 ## -- Test Methods --
 
@@ -46,10 +68,20 @@ test-up:
 test-down:
 	docker compose -f docker/test/docker-compose.yml down
 
+## Drop and reseed the test database from test/seed/seed.sql.gz
+.PHONY: test-seed
+test-seed:
+	docker compose -f docker/test/docker-compose.yml exec api pnpm run test:create
+
 ## Shell into test container
 .PHONY: test-shell
 test-shell:
 	docker compose -f docker/test/docker-compose.yml exec api /bin/bash
+
+## Execute command in test container
+.PHONY: test-exec
+test-exec:
+	docker compose -f docker/test/docker-compose.yml exec api $(filter-out $@,$(MAKECMDGOALS))
 
 ## Tail test service logs
 .PHONY: test-logs
@@ -70,11 +102,11 @@ live-down:
 
 ## -- Misc --
 
-## Update repository against origin/master
+## Update repository against origin/main
 .PHONY: update
 update:
 	git fetch
-	git merge --ff-only origin/master
+	git merge --ff-only origin/main
 
 ## How to use this Makefile
 .PHONY: help

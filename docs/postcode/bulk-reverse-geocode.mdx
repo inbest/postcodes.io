@@ -1,0 +1,225 @@
+---
+sidebar_label: "Bulk Reverse Geocode"
+title: "Bulk Reverse Geocode Postcodes"
+---
+
+Translates multiple geographic coordinates (longitude/latitude) into postcodes in a single request. This endpoint returns the nearest postcodes for each set of coordinates provided.
+
+```javascript
+POST https://api.postcodes.io/postcodes
+```
+
+## Endpoint
+
+```
+POST https://api.postcodes.io/postcodes
+```
+
+## Example Request
+
+```http
+POST https://api.postcodes.io/postcodes HTTP/1.1
+Content-Type: application/json
+
+{
+  "geolocations": [
+    {
+      "longitude": -3.15807731271522,
+      "latitude": 51.4799900627036
+    },
+    {
+      "longitude": -1.12935802905177,
+      "latitude": 50.7186356978817,
+      "radius": 500,
+      "limit": 5
+    }
+  ]
+}
+```
+
+## Example Response
+
+```json
+{
+  "status": 200,
+  "result": [
+    {
+      "query": {
+        "longitude": -3.15807731271522,
+        "latitude": 51.4799900627036
+      },
+      "result": [
+        {
+          "postcode": "CF24 2BT",
+          "quality": 1,
+          "eastings": 319675,
+          "northings": 176305,
+          "country": "Wales",
+          "nhs_ha": "Cardiff and Vale University Health Board",
+          "longitude": -3.158085,
+          "latitude": 51.479977,
+          "european_electoral_region": "Wales",
+          "primary_care_trust": "Cardiff and Vale University Health Board",
+          "region": null,
+          "lsoa": "Cardiff 038D",
+          "msoa": "Cardiff 038",
+          "incode": "2BT",
+          "outcode": "CF24",
+          "parliamentary_constituency": "Cardiff South and Penarth",
+          "parliamentary_constituency_2024": "Cardiff South and Penarth",
+          "senedd_constituency": "Caerdydd Penarth",
+          "senedd_constituency_no": 14,
+          "admin_district": "Cardiff",
+          "parish": "Splott",
+          "admin_county": "(pseudo) Wales",
+          "date_of_introduction": "199906",
+          "date_of_termination": null,
+          "index_of_multiple_deprivation": 12,
+          "admin_ward": "Splott",
+          "ced": null,
+          "ccg": "Cardiff and Vale University",
+          "nuts": "Cardiff",
+          "pfa": "South Wales",
+          "nhs_region": null,
+          "ttwa": "Cardiff",
+          "national_park": "Wales (non-National Park)",
+          "bua": "Cardiff",
+          "icb": "Wales",
+          "cancer_alliance": null,
+          "lsoa11": "Cardiff 038D",
+          "msoa11": "Cardiff 038",
+          "lsoa21": "Cardiff 038D",
+          "msoa21": "Cardiff 038",
+          "oa21": "W00009646",
+          "ruc11": "(England/Wales) Urban city and town",
+          "ruc21": "Urban: Nearer to a major town or city",
+          "lep1": null,
+          "lep2": null,
+          "codes": {
+            "admin_district": "W06000015",
+            "admin_county": "W99999999",
+            "admin_ward": "W05001295",
+            "parish": "W04001005",
+            "parliamentary_constituency": "W07000091",
+            "parliamentary_constituency_2024": "W07000091",
+            "ccg": "W11000029",
+            "ccg_id": "7A4",
+            "ced": "W99999999",
+            "nuts": "TLL52",
+            "lsoa": "W01001874",
+            "msoa": "W02000404",
+            "lau2": "W06000015",
+            "pfa": "W15000003",
+            "nhs_region": "W99999999",
+            "ttwa": "W22000024",
+            "national_park": "W31000001",
+            "bua": "W45001208",
+            "icb": "W99999999",
+            "cancer_alliance": "W99999999",
+            "lsoa11": "W01001874",
+            "msoa11": "W02000404",
+            "lsoa21": "W01001874",
+            "msoa21": "W02000404",
+            "oa21": "W00009646",
+            "ruc11": "C1",
+            "ruc21": "UN1",
+            "lep1": "W99999999",
+            "lep2": null
+          },
+          "distance": 1.5469903262881375
+        }
+        // Additional results omitted for brevity
+      ]
+    },
+    {
+      "query": {
+        "longitude": -1.12935802905177,
+        "latitude": 50.7186356978817,
+        "radius": 500,
+        "limit": 5
+      },
+      "result": [
+        {
+          "postcode": "PO33 1PS",
+          "quality": 1,
+          "eastings": 461564,
+          "northings": 91388,
+          "country": "England",
+          "nhs_ha": "South Central",
+          "longitude": -1.129272,
+          "latitude": 50.718856,
+          "distance": 25.234110225937016
+          // Additional fields omitted for brevity
+        }
+        // Additional results omitted for brevity
+      ]
+    }
+  ]
+}
+```
+
+## Request Parameters
+
+This endpoint requires a JSON object containing an array of geolocation objects:
+
+| Parameter      | Description                  | Required | Constraints           |
+| -------------- | ---------------------------- | -------- | --------------------- |
+| `geolocations` | Array of geolocation objects | Yes      | Maximum 100 objects   |
+| `longitude`    | Longitude coordinate         | Yes      | Valid longitude value |
+| `latitude`     | Latitude coordinate          | Yes      | Valid latitude value  |
+
+You can include up to 100 geolocation objects in a single request.
+
+Example JSON body:
+
+```json
+{
+  "geolocations": [
+    {
+      "longitude": -0.32824866,
+      "latitude": 51.44344409
+    },
+    {
+      "longitude": -0.20864309,
+      "latitude": 51.42001847
+    }
+  ]
+}
+```
+
+## Optional Query Parameters
+
+These parameters can be applied globally to all geolocations in the request:
+
+| Parameter    | Description                                             | Default | Constraints                   |
+| ------------ | ------------------------------------------------------- | ------- | ----------------------------- |
+| `limit`      | Maximum number of postcodes to return for each location | 10      | Must be less than 100         |
+| `radius`     | Search radius in metres                                 | 100     | Must be less than 2,000m      |
+| `widesearch` | When true, extends search radius up to 20km             | false   | Returns maximum of 10 results |
+
+Example with global parameters:
+
+```
+POST https://api.postcodes.io/postcodes?radius=200&limit=5
+```
+
+## Optional Geolocation Object Parameters
+
+These parameters can be specified for individual geolocation objects:
+
+| Parameter    | Description                                             | Default    | Constraints                        |
+| ------------ | ------------------------------------------------------- | ---------- | ---------------------------------- |
+| `limit`      | Maximum number of postcodes to return for this location | 10         | Must be less than 100              |
+| `radius`     | Search radius in metres for this location               | 100        | Must be less than 2,000m           |
+| `widesearch` | When true, extends search radius up to 20km             | false      | Returns maximum of 10 results      |
+| `filter`     | Comma-separated list of fields to return                | All fields | e.g. `postcode,longitude,latitude` |
+
+Individual parameters override global parameters for the specific geolocation object.
+
+## Response Details
+
+- Each geolocation query returns an array of matching postcodes
+- Results are sorted by distance (nearest first)
+- Each result includes a `distance` field showing meters from the query point
+- If no postcodes are found within the radius, `result` will be an empty array
+- If a geolocation is invalid, `result` will be null

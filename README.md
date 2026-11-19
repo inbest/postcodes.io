@@ -9,7 +9,7 @@
 
 Query for UK postcodes and geolocations over HTTP.
 
-Postcodes.io regularly ingests and serves the [ONS Postcode Directory](https://geoportal.statistics.gov.uk/search?collection=Dataset&sort=-created&tags=onspd) and [Ordnance Survey Open Names](https://www.ordnancesurvey.co.uk/products/os-open-names) datasets.
+Postcodes.io serves the [ONS Postcode Directory](https://geoportal.statistics.gov.uk/search?collection=Dataset&sort=-created&tags=onspd), [Ordnance Survey Open Names](https://www.ordnancesurvey.co.uk/products/os-open-names) and Scottish Postcode Directory datasets. The API runs against a pre-built PostgreSQL/PostGIS database that is published as a `pg_dump` from an upstream pipeline — this repository contains the HTTP service only.
 
 ## Features
 
@@ -46,13 +46,17 @@ docker-compose up
 ## Testing
 
 ```bash
-# Run entire test suite
+# Run the entire test suite end-to-end (build images, seed DB, run mocha):
 make test
 
-# Launch test application container and services, and run tests from container
+# Interactive test container:
 make test-up
 make test-shell
-$api-container> npm test
+$api-container> ./bin/load_test_seed   # rebuild the seeded DB
+$api-container> npm test               # mocha against the seeded DB
+
+# Run a command in the running test container:
+make test-exec npm test
 ```
 
 ## License

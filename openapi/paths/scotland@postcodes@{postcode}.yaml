@@ -1,10 +1,10 @@
 get:
   tags:
     - Scottish Postcodes
-  summary: Scottish Postcodes
+  summary: Lookup Scottish Postcode
   description:
     $ref: ../md/scottish-postcodes.md
-  operationId: Scottish Postcodes
+  operationId: getScottishPostcode
   parameters:
     - name: postcode
       in: path
@@ -15,19 +15,21 @@ get:
       schema:
         type: string
   responses:
-    '200':
+    "200":
       description: Success
       content:
         application/json:
           schema:
-            $ref: '../components/responses/ScottishPostcodes.yaml'
+            $ref: "../components/responses/ScottishPostcodeResponse.yaml"
+    "404":
+      description: Postcode not found
   x-codeSamples:
-  - lang: 'http'
-    label: 'URL'
-    source: |
-      https://api.postcodes.io/scotland/postcodes/IV27JB
-  - lang: 'cURL'
-    label: 'CLI'
-    source: |
-      curl -G -k \
-      --url 'https://api.postcodes.io/scotland/postcodes/IV27JB'
+    - lang: "http"
+      label: "URL"
+      source: |
+        https://api.postcodes.io/scotland/postcodes/IV27JB
+    - lang: "cURL"
+      label: "CLI"
+      source: |
+        curl -G -k \
+        --url 'https://api.postcodes.io/scotland/postcodes/IV27JB'

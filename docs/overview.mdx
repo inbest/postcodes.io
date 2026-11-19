@@ -1,0 +1,179 @@
+---
+sidebar_label: "Overview"
+title: "Overview"
+---
+
+# Overview
+
+Postcodes.io is a free, open-source postcode lookup API and geocoder for the United Kingdom maintained by [Ideal Postcodes](https://ideal-postcodes.co.uk).
+
+The API allows developers to:
+
+- Look up detailed information about UK postcodes
+- Reverse geocode coordinates to postcodes
+- Search for postcodes by partial string
+- Find nearest postcodes to a given location
+- Access associated data like administrative areas and demographic information
+
+No authentication is required to use this API.
+
+## Quick Start
+
+```http
+GET https://api.postcodes.io/postcodes/BR87RE
+```
+
+```json
+{
+  "status": 200,
+  "result": {
+    "postcode": "BR8 7RE",
+    "quality": 1,
+    "eastings": 551626,
+    "northings": 170342,
+    "country": "England",
+    "nhs_ha": "South East Coast",
+    "longitude": 0.178871,
+    "latitude": 51.411831,
+    "european_electoral_region": "South East",
+    "primary_care_trust": "West Kent",
+    "region": "South East",
+    "lsoa": "Sevenoaks 001A",
+    "msoa": "Sevenoaks 001",
+    "incode": "7RE",
+    "outcode": "BR8",
+    "parliamentary_constituency": "Sevenoaks",
+    "parliamentary_constituency_2024": "Sevenoaks",
+    "senedd_constituency": null,
+    "senedd_constituency_no": null,
+    "admin_district": "Sevenoaks",
+    "parish": "Hextable",
+    "admin_county": "Kent",
+    "date_of_introduction": "198001",
+    "date_of_termination": null,
+    "index_of_multiple_deprivation": 22386,
+    "admin_ward": "Hextable",
+    "ced": "Swanley",
+    "ccg": "NHS Kent and Medway",
+    "nuts": "Sevenoaks",
+    "pfa": "Kent",
+    "nhs_region": "South East",
+    "ttwa": "Maidstone and North Kent",
+    "national_park": null,
+    "bua": "Swanley",
+    "icb": "NHS Kent and Medway Integrated Care Board",
+    "cancer_alliance": "Kent and Medway Cancer Alliance",
+    "lsoa11": "Sevenoaks 001A",
+    "msoa11": "Sevenoaks 001",
+    "lsoa21": "Sevenoaks 001A",
+    "msoa21": "Sevenoaks 001",
+    "oa21": "E00058164",
+    "ruc11": "Urban city and town",
+    "ruc21": "Urban city and town",
+    "lep1": "South East",
+    "lep2": null,
+    "codes": {
+      "admin_district": "E07000111",
+      "admin_county": "E10000016",
+      "admin_ward": "E05009960",
+      "parish": "E04012394",
+      "parliamentary_constituency": "E14001465",
+      "parliamentary_constituency_2024": "E14001465",
+      "ccg": "E38000237",
+      "ccg_id": "91Q",
+      "ced": "E58000739",
+      "nuts": "TLJ46",
+      "lsoa": "E01024445",
+      "msoa": "E02005087",
+      "lau2": "E07000111",
+      "pfa": "E23000032",
+      "nhs_region": "E40000005",
+      "ttwa": "E30000188",
+      "national_park": null,
+      "bua": "E34001422",
+      "icb": "E54000032",
+      "cancer_alliance": "E56000004",
+      "lsoa11": "E01024445",
+      "msoa11": "E02005087",
+      "lsoa21": "E01024445",
+      "msoa21": "E02005087",
+      "oa21": "E00058164",
+      "ruc11": "C1",
+      "ruc21": "C1",
+      "lep1": "E37000025",
+      "lep2": null
+    }
+  }
+}
+```
+
+## Data
+
+Postcodes.io serves three upstream datasets:
+
+- **ONS Postcode Directory (ONSPD)** — UK postcodes with administrative, electoral, statistical and health geographies. Updated quarterly (February, May, August, November). Currently loaded: **August 2026**.
+- **OS Open Names** — places, settlements and other gazetteer entries for Great Britain. Updated quarterly. Currently loaded: **July 2026**.
+- **Scottish Postcode Directory (SPD)** — postcodes with Scottish-specific geographies (council areas, Scottish Parliamentary constituencies, Data Zones, SIMD, etc.). Updated twice a year. Currently loaded: **2026/2**.
+
+These versions describe the public API and the latest Docker images; a full release history is in the [CHANGELOG](https://github.com/ideal-postcodes/postcodes.io/blob/master/CHANGELOG.md) on GitHub.
+
+:::note
+
+Beyond the dates listed in the changelog, please be aware that the real-world dataset may change. Existing postcodes and places may be amended or discontinued. This information will not be captured until the next available update.
+:::
+
+## Data Accuracy & Limitations
+
+### Coordinate Systems
+
+The API provides coordinates in two distinct systems depending on the location:
+
+- **Great Britain:** Grid references (`eastings`, `northings`) use the **British National Grid**.
+- **Northern Ireland:** Grid references use the **Irish National Grid**.
+- **Channel Islands & Isle of Man:** These records do not possess grid references. The `eastings`, `northings`, `latitude`, and `longitude` fields will be `null` or blank.
+
+Latitude and longitude are derived from these grid references using specific transformations (`OSGB_1936_to_WGS_1984_Petroleum` for GB and `TM75_to_WGS_1984_2` for NI).
+
+### Boundary "Straddling"
+
+Postcodes are assigned to administrative areas (like Wards or Constituencies) based on a single "centroid" coordinate—the mean location of all addresses in that postcode.
+
+- **Limitation:** If a postcode physically straddles a boundary (e.g., a street split between two councils), the entire postcode is assigned to the area where the centroid falls.
+- **Impact:** This means addresses at the edge of a postcode may appear to be assigned to the "wrong" administrative area compared to their physical location.
+
+### Pseudo Codes
+
+In the `codes` object, you may encounter "pseudo codes" instead of standard GSS codes. These are used when a specific geography does not strictly apply to the region (e.g., Scotland does not use standard "County" definitions).
+
+- **Format:** Typically `L99999999` (Channel Islands), `M99999999` (Isle of Man), `N99999999` (Northern Ireland), or `S99999999` (Scotland).
+- **Recommendation:** Client logic should handle these specific codes as "Not Applicable" rather than treating them as valid IDs.
+
+## Endpoint
+
+All services can be accessed from the following subdomain:
+
+```javascript
+https://api.postcodes.io
+```
+
+The API accepts GET and POST requests. POST methods use content type `application/json`.
+
+## Error Handling
+
+To check for errors, examine the HTTP response code. 200 response indicates success while any other code will provide important information about why an error occurred.
+
+Alternatively, you can examine status code in the 'status' property in the result body.
+
+## Versioning
+
+The API currently does not use any form of versioning. Any changes to the API will be backwards-compatible, this includes: adding new properties to responses, adding new endpoints, adding new optional request parameters and changing the order of properties.
+
+If we make backwards-incompatible changes in the future, this will be released under a versioned endpoint.
+
+## Support
+
+Email: support@ideal-postcodes.co.uk
+
+## GitHub
+
+For bugs and feature requests use our [GitHub issue tracker](https://github.com/ideal-postcodes/postcodes.io/issues).

@@ -1,0 +1,60 @@
+---
+sidebar_label: "Place Schema"
+title: "Place Response Schema"
+---
+
+The Place schema represents geographical and administrative information for places in Great Britain (England, Scotland, Wales). This data is returned when using the place lookup endpoints in the Postcodes.io API.
+
+## Example
+
+```json
+{
+  "code": "osgb4000000074559209",
+  "name_1": "London",
+  "name_1_lang": "eng",
+  "name_2": null,
+  "name_2_lang": null,
+  "local_type": "Capital City",
+  "outcode": "EC1A",
+  "county_unitary": "Greater London",
+  "county_unitary_type": "Greater London Authority",
+  "district_borough": "City of London",
+  "district_borough_type": "London Borough",
+  "region": "London",
+  "country": "England",
+  "longitude": -0.09853,
+  "latitude": 51.51396,
+  "eastings": 531628,
+  "northings": 181342,
+  "min_eastings": 503508,
+  "min_northings": 155850,
+  "max_eastings": 561984,
+  "max_northings": 197627
+}
+```
+
+## Reference
+
+| Field                   | Type           | Description                                                                                                                     | Example                    |
+| ----------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| `code`                  | string         | A unique, persistent identifier for the place. Only may change for Section of Named Road and Section of Numbered Road types.    | "osgb4000000074559209"     |
+| `name_1`                | string         | The primary proper noun name that applies to the real-world entity.                                                             | "London"                   |
+| `name_1_lang`           | string \| null | The language of the primary name. Only present when multiple languages are recorded (e.g., "eng" for English, "cym" for Welsh). | "eng"                      |
+| `name_2`                | string \| null | The secondary name in a different language, if applicable.                                                                      | "Llundain"                 |
+| `name_2_lang`           | string \| null | The language of the secondary name (e.g., "cym" for Welsh, "gla" for Scottish Gaelic).                                          | "cym"                      |
+| `local_type`            | string         | The Ordnance Survey classification for the place (e.g., City, Town, Village, Hamlet, Other Settlement, Suburban Area).          | "Capital City"             |
+| `outcode`               | string         | The postcode district for this place (the first part of the postcode).                                                          | "EC1A"                     |
+| `county_unitary`        | string \| null | The County, Unitary Authority, or Greater London Authority administrative area containing or nearest to this place.             | "Greater London"           |
+| `county_unitary_type`   | string \| null | The type of county or unitary administrative unit (e.g., County, Unitary Authority, Metropolitan District).                     | "Greater London Authority" |
+| `district_borough`      | string \| null | The District, Metropolitan District, or London Borough administrative unit containing this place.                               | "City of London"           |
+| `district_borough_type` | string \| null | The type of district or borough administrative unit (e.g., District, London Borough).                                           | "London Borough"           |
+| `region`                | string         | The European Region (formerly Government Office Region) containing or nearest to this place.                                    | "London"                   |
+| `country`               | string         | The country within Great Britain (England, Scotland, or Wales). OS Places relates to Great Britain only.                        | "England"                  |
+| `longitude`             | number         | The WGS84 longitude coordinate derived from the place's national grid reference.                                                | -0.09853                   |
+| `latitude`              | number         | The WGS84 latitude coordinate derived from the place's national grid reference.                                                 | 51.51396                   |
+| `eastings`              | integer        | The Ordnance Survey grid reference easting (X-coordinate) to 1-meter resolution. Blank for Channel Islands and Isle of Man.     | 531628                     |
+| `northings`             | integer        | The Ordnance Survey grid reference northing (Y-coordinate) to 1-meter resolution. Blank for Channel Islands and Isle of Man.    | 181342                     |
+| `min_eastings`          | integer        | Minimum easting value of the bounding box (Minimum Bounding Rectangle) for roads and settlements.                               | 503508                     |
+| `min_northings`         | integer        | Minimum northing value of the bounding box (Minimum Bounding Rectangle) for roads and settlements.                              | 155850                     |
+| `max_eastings`          | integer        | Maximum easting value of the bounding box (Minimum Bounding Rectangle).                                                         | 561984                     |
+| `max_northings`         | integer        | Maximum northing value of the bounding box (Minimum Bounding Rectangle).                                                        | 197627                     |

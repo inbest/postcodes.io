@@ -1,0 +1,114 @@
+---
+sidebar_label: "Query"
+title: "Query for a Place"
+---
+
+Search for places that match a given query string. This endpoint returns a list of matching places with their associated data, sourced from Ordnance Survey's Open Names dataset.
+
+The search performs full-text matching against the place's primary and secondary names (case insensitive), falling back to prefix matching when there is no full-text hit.
+
+Returns a 200 response with either an empty array or up to 100 matching place entities.
+
+## Endpoint
+
+```javascript
+GET https://api.postcodes.io/places?q=[query]
+```
+
+## Example Request
+
+```
+https://api.postcodes.io/places?q=London&limit=3
+```
+
+## Example Response
+
+```json
+{
+  "status": 200,
+  "result": [
+    {
+      "code": "osgb4000000074564391",
+      "name_1": "London",
+      "name_1_lang": null,
+      "name_2": null,
+      "name_2_lang": null,
+      "local_type": "Capital City",
+      "outcode": "SW1A",
+      "county_unitary": "Greater London",
+      "county_unitary_type": "GB/GLA",
+      "district_borough": "Westminster",
+      "district_borough_type": "GB/LBO",
+      "region": "London",
+      "country": "England",
+      "longitude": -0.124669,
+      "latitude": 51.50092,
+      "eastings": 530005,
+      "northings": 179998,
+      "min_eastings": 529097,
+      "min_northings": 179257,
+      "max_eastings": 530826,
+      "max_northings": 180890
+    },
+    {
+      "code": "osgb4000000074552240",
+      "name_1": "London Colney",
+      "name_1_lang": null,
+      "name_2": null,
+      "name_2_lang": null,
+      "local_type": "Village",
+      "outcode": "AL2",
+      "county_unitary": "Hertfordshire",
+      "county_unitary_type": "GB/COU",
+      "district_borough": "St Albans",
+      "district_borough_type": "GB/DIS",
+      "region": "East of England",
+      "country": "England",
+      "longitude": -0.295621,
+      "latitude": 51.724052,
+      "eastings": 519047,
+      "northings": 204037,
+      "min_eastings": 518233,
+      "min_northings": 203145,
+      "max_eastings": 519846,
+      "max_northings": 204923
+    },
+    {
+      "code": "osgb4000000074553923",
+      "name_1": "Londonthorpe",
+      "name_1_lang": null,
+      "name_2": null,
+      "name_2_lang": null,
+      "local_type": "Hamlet",
+      "outcode": "NG31",
+      "county_unitary": "Lincolnshire",
+      "county_unitary_type": "GB/COU",
+      "district_borough": "South Kesteven",
+      "district_borough_type": "GB/DIS",
+      "region": "East Midlands",
+      "country": "England",
+      "longitude": -0.572613,
+      "latitude": 52.946381,
+      "eastings": 495078,
+      "northings": 338752,
+      "min_eastings": 494816,
+      "min_northings": 338544,
+      "max_eastings": 495326,
+      "max_northings": 338943
+    }
+  ]
+}
+```
+
+## Query Parameters
+
+| Parameter | Description             | Default  | Constraints |
+| --------- | ----------------------- | -------- | ----------- |
+| `q=`      | The search query string | Required | String      |
+| `query=`  | Alias for `q=`          | -        | String      |
+
+## Optional Query Parameters
+
+| Parameter | Description                         | Default | Constraints      |
+| --------- | ----------------------------------- | ------- | ---------------- |
+| `limit=`  | Maximum number of results to return | 10      | Integer, max 100 |

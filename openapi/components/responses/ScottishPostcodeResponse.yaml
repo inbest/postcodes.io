@@ -1,0 +1,14 @@
+title: Scottish Postcode Response
+type: object
+required:
+  - status
+  - result
+properties:
+  status:
+    type: integer
+    format: int32
+    enum:
+      - 200
+  result:
+    $ref: "../schemas/ScottishPostcodes.yaml"
+    description: "Scottish Postcode Directory (SPD) data for the requested postcode."

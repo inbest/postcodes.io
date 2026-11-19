@@ -17,3 +17,13 @@ dist
 *.env
 coverage
 .*.csv
+.docusaurus
+CLAUDE.md
+missing.json
+.claude
+plan
+bench
+/*.sql.gz
+*.duckdb
+*.duckdb.gz
+.pnpm-store/
