@@ -1,56 +1,76 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
+  name: postcodes-api
+  namespace: production
   labels:
-    app: postcodesio
-  name: postcodesio
+    app: postcodes-api
 spec:
+  progressDeadlineSeconds: 600
   replicas: 1
-  revisionHistoryLimit: 0
+  revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app: postcodesio
+      app: postcodes-api
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
   template:
     metadata:
       labels:
-        app: postcodesio
+        app: postcodes-api
     spec:
       containers:
-        - name: postcodesio
-          image:
-            gcr.io/inbestcloud/github-inbest-postcodesio:1.2
-          ports:
-            - containerPort: 8000
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          env:
-            - name: POSTGRES_DB
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-env-file
-                  key: POSTGRES_DB
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-env-file
-                  key: POSTGRES_PASSWORD
-            - name: POSTGRES_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-env-file
-                  key: POSTGRES_USER
-            - name: POSTGRES_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-env-file
-                  key: POSTGRES_HOST
-            - name: POSTGRES_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: postgres-env-file
-                  key: POSTGRES_PORT
+      - env:
+        - name: POSTGRES_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_DB
+              name: postgres-env-file
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: POSTGRES_PASSWORD
+              name: postgres-db-secrets
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_USER
+              name: postgres-env-file
+        - name: POSTGRES_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_HOST
+              name: postgres-env-file
+        - name: POSTGRES_PORT
+          valueFrom:
+            configMapKeyRef:
+              key: POSTGRES_PORT
+              name: postgres-env-file
+        image: idealpostcodes/postcodes.io:release-20.1.0
+        imagePullPolicy: Always
+        name: postcodes-api
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
